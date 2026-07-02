@@ -38,6 +38,26 @@ NEW_YORK_TZ = "America/New_York"
 UTC_TZ      = "UTC"
 
 # ─────────────────────────────────────────────
+# Strategy Parameters (ICT + RSI)
+# ─────────────────────────────────────────────
+RSI_PERIOD = 14
+RSI_OVERBOUGHT = 70
+RSI_OVERSOLD = 30
+
+# Swing detection (Fractal pivots)
+SWING_LOOKBACK = 3      # تعداد کندل‌های اطراف برای تأیید pivot
+SWING_MIN_DISTANCE = 5  # حداقل فاصله بین دو swing هم‌نوع
+
+# FVG detection (3-candle pattern)
+FVG_MIN_SIZE_PIPS = 0   # حداقل اندازه گپ (0 = همه گپ‌ها)
+
+# Liquidity Sweep
+SWEEP_BUFFER_PTS = 2    # بافر نقاط بالاتر/پایین‌تر از extreme برای sweep
+
+# MSS (Market Structure Shift)
+MSS_LOOKBACK = 10       # بررسی break آخرین ساختار در N کندل اخیر
+
+# ─────────────────────────────────────────────
 # AI Macro Bias (OpenRouter)
 # مدل و API از طریق OpenRouter در دسترس هستند.
 # API key به‌صورت امن از متغیر محیطی خوانده می‌شود.
