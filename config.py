@@ -58,6 +58,19 @@ SWEEP_BUFFER_PTS = 2    # بافر نقاط بالاتر/پایین‌تر از 
 MSS_LOOKBACK = 10       # بررسی break آخرین ساختار در N کندل اخیر
 
 # ─────────────────────────────────────────────
+# Risk Management
+# ─────────────────────────────────────────────
+RISK_PERCENT = 1.0           # ریسک دقیقاً 1٪ از موجودی حساب
+MIN_RR_RATIO = 2.0           # حداقل ریوارد-تو-ریسک (زیر 1:2 = رد)
+MAX_SPREAD_PTS = 50          # حداکثر اسپرد مجاز (points)
+MAX_DAILY_LOSSES = 3         # قانون 3 ضرر
+MAX_CONSECUTIVE_LOSSES = 3   # قانون 3 ضرر پشت‌سرهم
+RR_DAILY_RESET_UTC_HOUR = 0  # ریست روزانه در نیمه‌شب UTC
+
+# State file (persist برای زنده ماندن loss counter بعد از restart)
+STATE_FILE = "state.json"
+
+# ─────────────────────────────────────────────
 # AI Macro Bias (OpenRouter)
 # مدل و API از طریق OpenRouter در دسترس هستند.
 # API key به‌صورت امن از متغیر محیطی خوانده می‌شود.
