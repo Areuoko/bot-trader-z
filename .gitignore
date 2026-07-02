@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+
+# ─────────────────────────────────────────────
+# Secrets & Credentials  (هرگز پوش نشوند!)
+# ─────────────────────────────────────────────
+.env
+.env.*
+secrets.json
+credentials.json
+*_secret*.py
+config_local.py
+token*.txt
+
+# ─────────────────────────────────────────────
+# Logs & Runtime Data
+# ─────────────────────────────────────────────
+*.log
+logs/
+state.json
+trading_state.json
+
+# ─────────────────────────────────────────────
+# OS / IDE
+# ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
