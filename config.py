@@ -38,6 +38,29 @@ NEW_YORK_TZ = "America/New_York"
 UTC_TZ      = "UTC"
 
 # ─────────────────────────────────────────────
+# AI Macro Bias (OpenRouter)
+# مدل و API از طریق OpenRouter در دسترس هستند.
+# API key به‌صورت امن از متغیر محیطی خوانده می‌شود.
+# ─────────────────────────────────────────────
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # بارگذاری فایل .env در صورت وجود
+
+AI_API_KEY = os.getenv("AI_API_KEY", "")
+AI_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
+AI_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free"
+AI_TEMPERATURE = 0.2   # دما پایین → پاسخ‌های قطعی‌تر برای بایاس
+AI_MAX_TOKENS = 400
+AI_TIMEOUT = 60        # ثانیه
+AI_MAX_RETRIES = 3
+
+# ─────────────────────────────────────────────
+# Bias Cache (جلوگیری از مصرف اضافی توکن)
+# ─────────────────────────────────────────────
+BIAS_CACHE_FILE = "bias_cache.json"
+
+# ─────────────────────────────────────────────
 # Logging
 # ─────────────────────────────────────────────
 LOG_LEVEL = "INFO"

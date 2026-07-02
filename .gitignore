@@ -31,6 +31,8 @@ token*.txt
 logs/
 state.json
 trading_state.json
+bias_cache.json
+*_cache.json
 
 # ─────────────────────────────────────────────
 # OS / IDE
