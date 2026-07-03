@@ -1,16 +1,18 @@
 """
 ai_bias.py
-تحلیل بایاس ماکرو روزانه با استفاده از مدل هوش مصنوعی از طریق OpenRouter.
+تحلیل بایاس ماکرو روزانه با پشتیبانی از چندین provider.
 
 روند کار:
   1. اگر برای امروز قبلاً بایاس گرفته‌ایم (cache)، همان را برمی‌گردانیم.
-  2. در غیر این صورت پرامپت ساختاریافته‌ای به مدل می‌فرستیم.
-  3. پاسخ را به‌صورت JSON پارس می‌کنیم و در cache ذخیره می‌کنیم.
-  4. در صورت بروز خطا، بایاس "NEUTRAL" برمی‌گردد تا ربات متوقف نشود.
+  2. در غیر این صورت provider اصلی (primary) صدا زده می‌شود.
+  3. اگر primary شکست خورد (network/parse)، provider جایگزین (fallback) تلاش می‌کند.
+  4. پاسخ را به‌صورت JSON پارس می‌کنیم و در cache ذخیره می‌کنیم.
+  5. در صورت بروز خطا، بایاس "NEUTRAL" برمی‌گردد تا ربات متوقف نشود.
 """
 import json
 import logging
 import re
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -22,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 # ─────────────────────────────────────────────
-# Constants
+# Provider Configuration
 # ─────────────────────────────────────────────
 VALID_BIASES = {"BULLISH", "BEARISH", "NEUTRAL"}
 
@@ -62,34 +64,113 @@ USER_PROMPT_TEMPLATE = (
 )
 
 
+@dataclass
+class Provider:
+    """پیکربندی یک provider AI."""
+    name: str
+    api_key: str
+    base_url: str
+    model: str
+    headers: dict = field(default_factory=dict)
+    is_fallback: bool = False
+
+    @property
+    def is_configured(self) -> bool:
+        return bool(self.api_key and self.base_url and self.model)
+
+
 class AIBiasAnalyzer:
-    """تحلیل‌گر بایاس ماکرو با اتصال به OpenRouter."""
+    """تحلیل‌گر بایاس ماکرو با primary + fallback providers."""
 
     def __init__(self,
-                 api_key: str = config.AI_API_KEY,
-                 base_url: str = config.AI_BASE_URL,
-                 model: str = config.AI_MODEL,
-                 symbol: str = config.SYMBOL):
-        if not api_key:
-            logger.warning(
-                "AI_API_KEY is empty! Bias analysis will default to NEUTRAL. "
-                "Set it in .env file."
-            )
-        self.api_key = api_key
-        self.base_url = base_url
-        self.model = model
+                 symbol: str = config.SYMBOL,
+                 primary_name: str = config.AI_PRIMARY_PROVIDER,
+                 fallback_name: str = config.AI_FALLBACK_PROVIDER):
         self.symbol = symbol
+        self.providers = self._build_providers(primary_name, fallback_name)
         self._cache: dict = {}
+
+    def _build_providers(self, primary_name: str, fallback_name: str) -> list:
+        """ساخت لیست providerها (primary اول، fallback بعد)."""
+        providers = []
+
+        # ── Primary ──
+        if primary_name == "gemini":
+            providers.append(Provider(
+                name="gemini",
+                api_key=config.GEMINI_API_KEY,
+                base_url=config.GEMINI_BASE_URL,
+                model=config.GEMINI_MODEL,
+                headers={"Authorization": f"Bearer {config.GEMINI_API_KEY}"},
+            ))
+        elif primary_name == "openrouter":
+            providers.append(Provider(
+                name="openrouter",
+                api_key=config.OPENROUTER_API_KEY,
+                base_url=config.OPENROUTER_BASE_URL,
+                model=config.OPENROUTER_MODEL,
+                headers={
+                    "Authorization": f"Bearer {config.OPENROUTER_API_KEY}",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://github.com/Areuoko/bot-trader-z",
+                    "X-Title": "Bot Trader Z",
+                },
+            ))
+        else:
+            logger.warning("Unknown primary provider '%s'. Using openrouter.", primary_name)
+            providers.append(Provider(
+                name="openrouter",
+                api_key=config.OPENROUTER_API_KEY,
+                base_url=config.OPENROUTER_BASE_URL,
+                model=config.OPENROUTER_MODEL,
+                headers={
+                    "Authorization": f"Bearer {config.OPENROUTER_API_KEY}",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://github.com/Areuoko/bot-trader-z",
+                    "X-Title": "Bot Trader Z",
+                },
+            ))
+
+        # ── Fallback ──
+        if fallback_name == "gemini":
+            fb = Provider(
+                name="gemini",
+                api_key=config.GEMINI_API_KEY,
+                base_url=config.GEMINI_BASE_URL,
+                model=config.GEMINI_MODEL,
+                headers={"Authorization": f"Bearer {config.GEMINI_API_KEY}"},
+                is_fallback=True,
+            )
+        else:
+            fb = Provider(
+                name="openrouter",
+                api_key=config.OPENROUTER_API_KEY,
+                base_url=config.OPENROUTER_BASE_URL,
+                model=config.OPENROUTER_MODEL,
+                headers={
+                    "Authorization": f"Bearer {config.OPENROUTER_API_KEY}",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://github.com/Areuoko/bot-trader-z",
+                    "X-Title": "Bot Trader Z",
+                },
+                is_fallback=True,
+            )
+
+        # از افزودن duplicate جلوگیری کن (بررسی از روی لیست محلی، نه self)
+        if fb.name != providers[0].name or fb.model != providers[0].model:
+            providers.append(fb)
+        else:
+            logger.info("Fallback provider is identical to primary; using primary only.")
+
+        return providers
 
     # ─────────────────────────────────────────────
     # Cache Management (daily)
     # ─────────────────────────────────────────────
     def _today_key(self) -> str:
-        """کلید تاریخ امروز به فرمت YYYY-MM-DD در UTC."""
         return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     def _load_cache(self) -> dict:
-        """بارگذاری cache از فایل محلی در صورت وجود."""
         try:
             with open(config.BIAS_CACHE_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
@@ -100,7 +181,6 @@ class AIBiasAnalyzer:
             return {}
 
     def _save_cache(self, cache: dict) -> None:
-        """ذخیره cache در فایل محلی."""
         try:
             with open(config.BIAS_CACHE_FILE, "w", encoding="utf-8") as f:
                 json.dump(cache, f, ensure_ascii=False, indent=2)
@@ -108,7 +188,6 @@ class AIBiasAnalyzer:
             logger.warning("Failed to save bias cache: %s", e)
 
     def _get_cached(self) -> Optional[dict]:
-        """بایاس امروز را از cache برمی‌گرداند یا None."""
         today = self._today_key()
         cache = self._load_cache()
         if today in cache:
@@ -117,7 +196,6 @@ class AIBiasAnalyzer:
         return None
 
     def _store_cache(self, bias_data: dict) -> None:
-        """بایاس امروز را در cache ذخیره می‌کند."""
         today = self._today_key()
         cache = self._load_cache()
         cache[today] = bias_data
@@ -126,20 +204,18 @@ class AIBiasAnalyzer:
     # ─────────────────────────────────────────────
     # AI API Call
     # ─────────────────────────────────────────────
-    def _call_api(self, user_prompt: str) -> Optional[str]:
+    def _call_provider(self, provider: Provider, user_prompt: str) -> Optional[str]:
         """
-        ارسال درخواست به OpenRouter و دریافت پاسخ متنی مدل.
-        در صورت خطای شبکه، retry می‌شود.
+        یک تلاش با یک provider خاص.
+        اگر جواب Parse-friendly نبود، return None.
         """
-        headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-            # OpenRouter برای رتبه‌بندی مدل‌ها این هدرها را توصیه می‌کند
-            "HTTP-Referer": "https://github.com/Areuoko/bot-trader-z",
-            "X-Title": "Bot Trader Z",
-        }
+        if not provider.is_configured:
+            logger.warning("Provider %s is not configured (missing key/url/model).",
+                           provider.name)
+            return None
+
         payload = {
-            "model": self.model,
+            "model": provider.model,
             "messages": [
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
@@ -148,30 +224,61 @@ class AIBiasAnalyzer:
             "max_tokens": config.AI_MAX_TOKENS,
         }
 
+        # برای Gemini، model معمولاً از URL شناخته می‌شود، ولی در body هم می‌فرستیم.
+        headers = provider.headers.copy()
+        if "Content-Type" not in headers:
+            headers["Content-Type"] = "application/json"
+
         last_err = None
         for attempt in range(1, config.AI_MAX_RETRIES + 1):
             try:
-                logger.info("AI API call attempt %d/%d...", attempt, config.AI_MAX_RETRIES)
+                label = "fallback" if provider.is_fallback else "primary"
+                logger.info("[%s/%s] AI call attempt %d/%d -> %s (%s)",
+                            label, provider.name, attempt,
+                            config.AI_MAX_RETRIES, provider.model, provider.base_url)
                 resp = requests.post(
-                    self.base_url,
+                    provider.base_url,
                     headers=headers,
                     json=payload,
                     timeout=config.AI_TIMEOUT,
                 )
-                if resp.status_code == 200:
-                    data = resp.json()
-                    content = data["choices"][0]["message"]["content"]
-                    logger.info("AI response received (%d tokens approx).",
-                                len(content.split()))
-                    return content
-                else:
+
+                # 401/403 = کلید مشکل داره → سریع برو fallback
+                if resp.status_code in (401, 403):
+                    logger.error("Provider %s auth failed (HTTP %d): %s",
+                                 provider.name, resp.status_code, resp.text[:200])
+                    return None
+
+                if resp.status_code != 200:
                     last_err = f"HTTP {resp.status_code}: {resp.text[:200]}"
-                    logger.warning("API error attempt %d: %s", attempt, last_err)
+                    logger.warning("Provider %s HTTP error attempt %d: %s",
+                                   provider.name, attempt, last_err)
+                    continue
+
+                data = resp.json()
+                content = data["choices"][0]["message"]["content"]
+
+                # اگر finish_reason=length یعنی truncated
+                finish_reason = data["choices"][0].get("finish_reason")
+                if finish_reason == "length":
+                    logger.warning("Provider %s response was truncated (max_tokens). "
+                                   "Will attempt rescue parser.", provider.name)
+
+                logger.info("Provider %s response received (%d tokens approx).",
+                            provider.name, len(content.split()))
+                return content
+
             except requests.exceptions.RequestException as e:
                 last_err = str(e)
-                logger.warning("Network error attempt %d: %s", attempt, last_err)
+                logger.warning("Provider %s network error attempt %d: %s",
+                               provider.name, attempt, last_err)
+            except (KeyError, json.JSONDecodeError) as e:
+                last_err = str(e)
+                logger.warning("Provider %s response error attempt %d: %s",
+                               provider.name, attempt, last_err)
 
-        logger.error("All AI API retries exhausted. Last error: %s", last_err)
+        logger.error("Provider %s failed after %d retries. Last error: %s",
+                     provider.name, config.AI_MAX_RETRIES, last_err)
         return None
 
     # ─────────────────────────────────────────────
@@ -184,7 +291,7 @@ class AIBiasAnalyzer:
           - JSON خالص
           - JSON محصور در markdown fences ```json ... ```
           - JSON با متن اضافی قبل/بعد
-          - JSON بریده‌شده (truncated) ← نجات‌دهنده
+          - JSON بریده‌شده (truncated)
         """
         # تلاش ۱: پارس مستقیم
         try:
@@ -211,8 +318,7 @@ class AIBiasAnalyzer:
             except json.JSONDecodeError:
                 pass
 
-        # تلاش 4: نجات JSON بریده‌شده (truncated)
-        # اگر JSON از '}' آخر باز موند، می‌توانیم فیلدهای موجود را استخراج کنیم.
+        # تلاش 4: نجات JSON بریده‌شده
         rescued = AIBiasAnalyzer._rescue_truncated_json(text)
         if rescued is not None:
             logger.warning("AI response was truncated. Rescued partial JSON: %s",
@@ -224,27 +330,16 @@ class AIBiasAnalyzer:
 
     @staticmethod
     def _rescue_truncated_json(text: str) -> Optional[dict]:
-        """
-        نجات فیلدهای موجود از یک JSON بریده‌شده.
-
-        مثال:
-          '{"bias": "BULLISH", "confidence": 75, "reasoning": "Geopol...'
-          → {"bias": "BULLISH", "confidence": 75}
-
-        فقط فیلدهای پرانتز/کاما-دار کامل شده استخراج می‌شوند.
-        """
-        # پیدا کردن اولین '{'
+        """نجات فیلدهای موجود از یک JSON بریده‌شده."""
         start = text.find("{")
         if start == -1:
             return None
-        # استخراج key-value pairs با regex
         pattern = r'"(\w+)"\s*:\s*("(?:[^"\\]|\\.)*"|\d+(?:\.\d+)?)'
         matches = re.findall(pattern, text[start:])
         if not matches:
             return None
         result = {}
         for key, val in matches:
-            # اگر مقدار رشته‌ای است، کوتیشن‌ها را حذف کن
             if val.startswith('"'):
                 result[key] = val[1:-1]
             else:
@@ -252,19 +347,16 @@ class AIBiasAnalyzer:
                     result[key] = float(val) if '.' in val else int(val)
                 except ValueError:
                     result[key] = val
-        # فقط اگر حداقل bias وجود داشت معتبر است
         if "bias" not in result:
             return None
         return result
 
-    def _validate_bias(self, data: dict) -> dict:
-        """
-        اعتبارسنجی و نرمال‌سازی خروجی مدل.
-        مقادیر نامعتبر را به مقادیر امن تبدیل می‌کند.
-        """
+    def _validate_bias(self, data: dict, provider_name: str) -> dict:
+        """اعتبارسنجی و نرمال‌سازی خروجی مدل."""
         bias = str(data.get("bias", "")).upper().strip()
         if bias not in VALID_BIASES:
-            logger.warning("Invalid bias '%s' from model, defaulting to NEUTRAL.", bias)
+            logger.warning("Invalid bias '%s' from %s, defaulting to NEUTRAL.",
+                           bias, provider_name)
             bias = "NEUTRAL"
 
         try:
@@ -285,7 +377,7 @@ class AIBiasAnalyzer:
             "confidence": confidence,
             "reasoning": reasoning,
             "key_drivers": drivers,
-            "model": self.model,
+            "provider": provider_name,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -295,47 +387,46 @@ class AIBiasAnalyzer:
     def get_daily_bias(self) -> dict:
         """
         بایاس ماکرو امروز را برمی‌گرداند.
-
-        روند:
-          1. اول cache امروز را چک کن.
-          2. اگر نبود، API صدا بزن.
-          3. پاسخ را parse و validate کن.
-          4. در cache ذخیره کن.
-          5. در صورت خطا، NEUTRAL برگردان.
-
-        Returns:
-            dict with keys: bias, confidence, reasoning, key_drivers,
-                            model, timestamp
+        ابتدا cache، سپس primary provider، سپس fallback provider.
         """
         # 1. Cache
         cached = self._get_cached()
         if cached is not None:
             return cached
 
-        # 2. اگر API key نباشد، فوراً NEUTRAL برگردان
-        if not self.api_key:
-            logger.warning("No API key. Returning NEUTRAL bias.")
-            return self._validate_bias({})
+        # 2. اگر هیچ provider پیکربندی نشده
+        if not any(p.is_configured for p in self.providers):
+            logger.warning("No AI provider configured. Returning NEUTRAL bias.")
+            return self._validate_bias({"bias": "NEUTRAL"}, "none")
 
-        # 3. API call
+        # 3. امتحان کردن providerها
         user_prompt = USER_PROMPT_TEMPLATE.format(symbol=self.symbol)
-        raw_text = self._call_api(user_prompt)
-        if raw_text is None:
-            logger.warning("AI call failed, defaulting to NEUTRAL bias.")
-            return self._validate_bias({})
+        used_provider = None
+        raw_text = None
+
+        for provider in self.providers:
+            raw_text = self._call_provider(provider, user_prompt)
+            if raw_text is not None:
+                used_provider = provider.name
+                break
+            logger.info("Switching from %s to next provider...", provider.name)
 
         # 4. Parse + Validate
+        if raw_text is None:
+            logger.warning("All AI providers failed, defaulting to NEUTRAL bias.")
+            return self._validate_bias({"bias": "NEUTRAL"}, "none")
+
         parsed = self._extract_json(raw_text)
         if parsed is None:
             logger.warning("Could not parse AI response, defaulting to NEUTRAL.")
-            return self._validate_bias({})
+            return self._validate_bias({"bias": "NEUTRAL"}, used_provider or "none")
 
-        final = self._validate_bias(parsed)
+        final = self._validate_bias(parsed, used_provider or "unknown")
 
-        # 5. Store in cache
+        # 5. Store cache
         self._store_cache(final)
-        logger.info("Daily bias stored: %s (confidence=%d%%)",
-                    final["bias"], final["confidence"])
+        logger.info("Daily bias stored: %s (confidence=%d%%) via %s",
+                    final["bias"], final["confidence"], final["provider"])
         return final
 
 
