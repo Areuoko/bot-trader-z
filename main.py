@@ -99,6 +99,13 @@ class TradingBot:
         self._last_deal_id = 0         # برای tracking wins/losses
         self._running = True
 
+        # Persistent RiskManager for loss tracking (avoids new instance each tick)
+        acc = mt5.account_info()
+        self.risk_mgr = RiskManager(
+            balance=acc.balance if acc else 0.0,
+            symbol_info=self.symbol_info,
+        )
+
         logger.info("All components initialized. Bot ready.")
         logger.info("=" * 60)
 
@@ -215,8 +222,8 @@ class TradingBot:
         spread_pts = (tick.ask - tick.bid) / self.symbol_info.point if tick else 9999
         # موجودی به‌روز
         acc = mt5.account_info()
-        risk_mgr = RiskManager(balance=acc.balance, symbol_info=self.symbol_info)
-        validation = risk_mgr.validate_signal(signal_obj, spread_pts)
+        self.risk_mgr.update_balance(acc.balance if acc else 0.0)
+        validation = self.risk_mgr.validate_signal(signal_obj, spread_pts)
         if not validation["approved"]:
             logger.info("✗ Signal rejected by RiskManager: %s",
                         validation["reason"])
@@ -248,14 +255,15 @@ class TradingBot:
             new_id, profits = self.executor.check_closed_deals(self._last_deal_id)
             if not profits:
                 return
-            # RiskManager نمونه‌سازی برای tracking
+            # به‌روزرسانی موجودی
             acc = mt5.account_info()
-            rm = RiskManager(balance=acc.balance, symbol_info=self.symbol_info)
+            if acc:
+                self.risk_mgr.update_balance(acc.balance)
             for p in profits:
                 if p >= 0:
-                    rm.record_win()
+                    self.risk_mgr.record_win()
                 else:
-                    rm.record_loss()
+                    self.risk_mgr.record_loss()
             self._last_deal_id = new_id
             logger.info("Updated trade results: %d deals processed.", len(profits))
         except Exception as e:

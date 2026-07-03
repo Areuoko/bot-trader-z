@@ -231,8 +231,8 @@ class TradeExecutor:
             - profit > 0 → win
             - profit < 0 → loss
         """
-        from datetime import datetime, timezone
-        from_date = datetime(2020, 1, 1, tzinfo=timezone.utc)
+        from datetime import datetime, timedelta, timezone
+        from_date = datetime.now(timezone.utc) - timedelta(days=7)
         deals = mt5.history_deals_get(from_date, datetime.now(timezone.utc))
         if deals is None:
             return last_checked_deal_id, []

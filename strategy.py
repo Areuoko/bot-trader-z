@@ -376,7 +376,7 @@ class ICT_RSI_Strategy:
             has_div = recent['div_bull'].sum() > 0
             has_mss = recent['mss_bull'].sum() > 0
             has_fvg = recent['fvg_bull'].sum() > 0
-            if has_sweep and has_div and has_mss:
+            if has_sweep and has_div and has_mss and has_fvg:
                 # SL = پایین wick sweep, TP = entry + RR * risk
                 entry = float(last['close'])
                 sweep_low = float(recent['low'].min())
@@ -397,7 +397,7 @@ class ICT_RSI_Strategy:
             has_div = recent['div_bear'].sum() > 0
             has_mss = recent['mss_bear'].sum() > 0
             has_fvg = recent['fvg_bear'].sum() > 0
-            if has_sweep and has_div and has_mss:
+            if has_sweep and has_div and has_mss and has_fvg:
                 entry = float(last['close'])
                 sweep_high = float(recent['high'].max())
                 risk = sweep_high - entry

@@ -6,14 +6,18 @@ config.py
 import os
 from datetime import time
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # ─────────────────────────────────────────────
 # MetaTrader 5 Credentials
-# مسیر ترمینال، شماره حساب، رمز و سرور بروکر را اینجا بگذارید.
+# مقادیر از فایل .env خوانده می‌شوند.
 # ─────────────────────────────────────────────
-MT5_PATH = r"C:\Program Files\MetaTrader 5\terminal64.exe"
-MT5_LOGIN = 12345678            # ← شماره حساب واقعی
-MT5_PASSWORD = "YOUR_PASSWORD"  # ← رمز عبور
-MT5_SERVER = "YOUR_BROKER-Server"
+MT5_PATH = os.getenv("MT5_PATH", r"C:\Program Files\MetaTrader 5\terminal64.exe")
+MT5_LOGIN = int(os.getenv("MT5_LOGIN", "0"))
+MT5_PASSWORD = os.getenv("MT5_PASSWORD", "")
+MT5_SERVER = os.getenv("MT5_SERVER", "")
 
 # ─────────────────────────────────────────────
 # Symbol & Timeframe
@@ -97,9 +101,6 @@ LOG_FILE = "bot.log"             # فایل لاگ
 # پشتیبانی از چندین provider: Gemini (primary) + OpenRouter (fallback).
 # API key‌ها به‌صورت امن از فایل .env خوانده می‌شوند.
 # ─────────────────────────────────────────────
-from dotenv import load_dotenv
-
-load_dotenv()  # بارگذاری فایل .env
 
 # Provider انتخابی (gemini | openrouter)
 AI_PRIMARY_PROVIDER = os.getenv("AI_PRIMARY_PROVIDER", "gemini").lower()
