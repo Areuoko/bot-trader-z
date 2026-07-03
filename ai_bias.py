@@ -29,7 +29,13 @@ VALID_BIASES = {"BULLISH", "BEARISH", "NEUTRAL"}
 SYSTEM_PROMPT = (
     "You are a senior macro economic analyst specialized in currency and "
     "commodity markets. Your role is to determine today's directional bias "
-    "for trading decisions. You must respond STRICTLY in valid JSON format."
+    "for trading decisions.\n\n"
+    "CRITICAL OUTPUT RULES:\n"
+    "  1. Output ONLY a JSON object. No greeting, no preamble, no explanation.\n"
+    "  2. Start your response with '{' and end with '}'.\n"
+    "  3. Keep the reasoning field to ONE short sentence (max 20 words).\n"
+    "  4. Keep key_drivers to at most 3 items, each max 6 words.\n"
+    "  Be extremely concise to fit within the token budget."
 )
 
 USER_PROMPT_TEMPLATE = (
@@ -178,6 +184,7 @@ class AIBiasAnalyzer:
           - JSON خالص
           - JSON محصور در markdown fences ```json ... ```
           - JSON با متن اضافی قبل/بعد
+          - JSON بریده‌شده (truncated) ← نجات‌دهنده
         """
         # تلاش ۱: پارس مستقیم
         try:
@@ -198,13 +205,57 @@ class AIBiasAnalyzer:
         brace_pattern = r"\{.*\}"
         match = re.search(brace_pattern, text, re.DOTALL)
         if match:
+            candidate = match.group(0)
             try:
-                return json.loads(match.group(0))
+                return json.loads(candidate)
             except json.JSONDecodeError:
                 pass
 
+        # تلاش 4: نجات JSON بریده‌شده (truncated)
+        # اگر JSON از '}' آخر باز موند، می‌توانیم فیلدهای موجود را استخراج کنیم.
+        rescued = AIBiasAnalyzer._rescue_truncated_json(text)
+        if rescued is not None:
+            logger.warning("AI response was truncated. Rescued partial JSON: %s",
+                           list(rescued.keys()))
+            return rescued
+
         logger.error("Could not parse JSON from AI response. Raw: %s", text[:300])
         return None
+
+    @staticmethod
+    def _rescue_truncated_json(text: str) -> Optional[dict]:
+        """
+        نجات فیلدهای موجود از یک JSON بریده‌شده.
+
+        مثال:
+          '{"bias": "BULLISH", "confidence": 75, "reasoning": "Geopol...'
+          → {"bias": "BULLISH", "confidence": 75}
+
+        فقط فیلدهای پرانتز/کاما-دار کامل شده استخراج می‌شوند.
+        """
+        # پیدا کردن اولین '{'
+        start = text.find("{")
+        if start == -1:
+            return None
+        # استخراج key-value pairs با regex
+        pattern = r'"(\w+)"\s*:\s*("(?:[^"\\]|\\.)*"|\d+(?:\.\d+)?)'
+        matches = re.findall(pattern, text[start:])
+        if not matches:
+            return None
+        result = {}
+        for key, val in matches:
+            # اگر مقدار رشته‌ای است، کوتیشن‌ها را حذف کن
+            if val.startswith('"'):
+                result[key] = val[1:-1]
+            else:
+                try:
+                    result[key] = float(val) if '.' in val else int(val)
+                except ValueError:
+                    result[key] = val
+        # فقط اگر حداقل bias وجود داشت معتبر است
+        if "bias" not in result:
+            return None
+        return result
 
     def _validate_bias(self, data: dict) -> dict:
         """

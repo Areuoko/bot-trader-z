@@ -83,6 +83,16 @@ FMP_BASE_URL = "https://financialmodelingprep.com/api/v3/economic_calendar"
 NEWS_FETCH_DAYS_AHEAD = 3                   # فتچ اخبار N روز آینده
 
 # ─────────────────────────────────────────────
+# Execution & Main Loop
+# ─────────────────────────────────────────────
+MAGIC_NUMBER = 234567            # شناسه‌ی یکتای ربات برای تشخیص سفارش‌های خودش
+SLIPPAGE_DEVIATION = 20          # حداکثر انحراف مجاز (points)
+MAX_OPEN_POSITIONS = 1           # استراتژی تک‌پوزیشن
+BOT_COMMENT = "BotTraderZ"
+LOOP_INTERVAL_SECONDS = 15       # فاصله‌ی هر چرخه (دقیقاً طبق درخواست)
+LOG_FILE = "bot.log"             # فایل لاگ
+
+# ─────────────────────────────────────────────
 # AI Macro Bias (OpenRouter)
 # مدل و API از طریق OpenRouter در دسترس هستند.
 # API key به‌صورت امن از متغیر محیطی خوانده می‌شود.
@@ -95,7 +105,7 @@ AI_API_KEY = os.getenv("AI_API_KEY", "")
 AI_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
 AI_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free"
 AI_TEMPERATURE = 0.2   # دما پایین → پاسخ‌های قطعی‌تر برای بایاس
-AI_MAX_TOKENS = 400
+AI_MAX_TOKENS = 800
 AI_TIMEOUT = 60        # ثانیه
 AI_MAX_RETRIES = 3
 
