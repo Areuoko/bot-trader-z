@@ -3,6 +3,7 @@ config.py
 تنظیمات مرکزی ربات تریدر.
 تمام مقادیر قابل تغییر در همین فایل جمع‌آوری شده‌اند.
 """
+import os
 from datetime import time
 
 # ─────────────────────────────────────────────
@@ -71,11 +72,21 @@ RR_DAILY_RESET_UTC_HOUR = 0  # ریست روزانه در نیمه‌شب UTC
 STATE_FILE = "state.json"
 
 # ─────────────────────────────────────────────
+# News Filter
+# ─────────────────────────────────────────────
+NEWS_CALENDAR_FILE = "news_calendar.json"   # فایل محلی تقویم اخبار
+NEWS_BLACKOUT_MINUTES = 30                  # ±30 دقیقه قبل/بعد خبر High Impact
+NEWS_RELEVANT_CURRENCIES = ["USD"]          # فقط اخبار USD برای XAUUSD
+NEWS_FETCH_ENABLED = False                  # آیا از API فتچ کنیم؟ (نیازمند FMP_API_KEY)
+FMP_API_KEY = os.getenv("FMP_API_KEY", "")  # Financial Modeling Prep (free tier)
+FMP_BASE_URL = "https://financialmodelingprep.com/api/v3/economic_calendar"
+NEWS_FETCH_DAYS_AHEAD = 3                   # فتچ اخبار N روز آینده
+
+# ─────────────────────────────────────────────
 # AI Macro Bias (OpenRouter)
 # مدل و API از طریق OpenRouter در دسترس هستند.
 # API key به‌صورت امن از متغیر محیطی خوانده می‌شود.
 # ─────────────────────────────────────────────
-import os
 from dotenv import load_dotenv
 
 load_dotenv()  # بارگذاری فایل .env در صورت وجود
