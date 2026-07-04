@@ -90,11 +90,11 @@ class TradingBot:
 
         # 3. Components
         self.session = SessionManager()
-        self.ai_bias = AIBiasAnalyzer()
+        self.telegram = TelegramNotifier()
+        self.ai_bias = AIBiasAnalyzer(telegram=self.telegram)
         self.strategy = ICT_RSI_Strategy()
         self.news = NewsFilter()
-        self.executor = TradeExecutor(symbol=config.SYMBOL)
-        self.telegram = TelegramNotifier()
+        self.executor = TradeExecutor(symbol=config.SYMBOL, telegram=self.telegram)
 
         # State
         self._last_bar_time = None     # برای تشخیص کندل جدید
@@ -208,20 +208,6 @@ class TradingBot:
                     daily_bias, bias_data.get("confidence", 0),
                     bias_data.get("reasoning", "")[:80])
 
-        # ارسال اعلان تلگرام برای بایاس روزانه (فقط یک بار در روز)
-        try:
-            bias_text = (
-                f"📊 <b>بایاس روزانه:</b> {daily_bias}\n"
-                f"🎯 <b>اعتماد:</b> {bias_data.get('confidence', 0)}%\n"
-                f"💡 <b>دلیل:</b> {bias_data.get('reasoning', 'N/A')}\n"
-                f"🔑 <b>عوامل کلیدی:</b>\n"
-            )
-            for driver in bias_data.get("key_drivers", []):
-                bias_text += f"  • {driver}\n"
-            self.telegram.send_daily_ai_bias(bias_text)
-        except Exception as e:
-            logger.warning("Failed to send Telegram daily bias notification: %s", e)
-
         # ── 7. تولید سیگنال ──
         signal_obj = self.strategy.generate_signal(df_ind, daily_bias)
         if not signal_obj.is_valid:
@@ -259,23 +245,11 @@ class TradingBot:
         if ticket is not None:
             logger.info("🎉 Trade opened | ticket=%d | %s %.2f lots",
                         ticket, signal_obj.direction, validation["lot_size"])
-            # ارسال اعلان تلگرام
-            try:
-                self.telegram.send_trade_opened(
-                    symbol=config.SYMBOL,
-                    direction=signal_obj.direction,
-                    entry=signal_obj.entry,
-                    sl=signal_obj.stop_loss,
-                    tp=signal_obj.take_profit,
-                    lot_size=validation["lot_size"],
-                )
-            except Exception as e:
-                logger.warning("Failed to send Telegram trade opened notification: %s", e)
         else:
             logger.error("✗ Order execution failed.")
 
     # ─────────────────────────────────────────────
-    # Closed Deal Tracking (3-loss rule update)
+    # Closed Deal Tracking (3-loss rule update + Telegram notification)
     # ─────────────────────────────────────────────
     def _check_closed_deals(self):
         """بررسی معاملات بسته‌شده و به‌روزرسانی loss counter + ارسال اعلان تلگرام."""

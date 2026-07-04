@@ -10,6 +10,7 @@ execution.py
   - اجرای تک‌پوزیشن (جلوگیری از ریسک مضاعف)
   - بررسی دقیق retcode بعد از order_send
   - لاگ‌گذاری کامل تمام مراحل
+  - ارسال خودکار اعلان تلگرام هنگام باز شدن معامله
 """
 import logging
 import math
@@ -25,9 +26,11 @@ logger = logging.getLogger(__name__)
 class TradeExecutor:
     """اجرای سفارش‌ها و مدیریت پوزیشن‌های باز روی MT5."""
 
-    def __init__(self, symbol: str = config.SYMBOL, magic: int = config.MAGIC_NUMBER):
+    def __init__(self, symbol: str = config.SYMBOL, magic: int = config.MAGIC_NUMBER,
+                 telegram=None):
         self.symbol = symbol
         self.magic = magic
+        self.telegram = telegram  # TelegramNotifier instance
         self._info = mt5.symbol_info(symbol)
         if self._info is None:
             logger.error("symbol_info(%s) returned None!", symbol)
@@ -201,7 +204,36 @@ class TradeExecutor:
 
         logger.info("ORDER FILLED ✓ | ticket=%d | price=%s | volume=%.2f",
                     result.order, result.price, result.volume)
+
+        # 9. Send Telegram notification
+        self._send_trade_opened_notification(
+            symbol=self.symbol,
+            direction=direction,
+            entry=price,
+            sl=sl,
+            tp=tp,
+            lot_size=volume,
+        )
+
         return result.order
+
+    def _send_trade_opened_notification(self, symbol: str, direction: str,
+                                         entry: float, sl: float, tp: float,
+                                         lot_size: float) -> None:
+        """ارسال اعلان باز شدن معامله به تلگرام."""
+        if not self.telegram:
+            return
+        try:
+            self.telegram.send_trade_opened(
+                symbol=symbol,
+                direction=direction,
+                entry=entry,
+                sl=sl,
+                tp=tp,
+                lot_size=lot_size,
+            )
+        except Exception as e:
+            logger.warning("Failed to send Telegram trade opened notification: %s", e)
 
     @staticmethod
     def _decode_retcode(code: int) -> str:

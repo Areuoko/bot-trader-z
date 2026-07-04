@@ -8,6 +8,7 @@ ai_bias.py
   3. اگر primary شکست خورد (network/parse)، provider جایگزین (fallback) تلاش می‌کند.
   4. پاسخ را به‌صورت JSON پارس می‌کنیم و در cache ذخیره می‌کنیم.
   5. در صورت بروز خطا، بایاس "NEUTRAL" برمی‌گردد تا ربات متوقف نشود.
+  6. ارسال خودکار بایاس به تلگرام پس از دریافت موفقیت‌آمیز.
 """
 import json
 import logging
@@ -85,10 +86,12 @@ class AIBiasAnalyzer:
     def __init__(self,
                  symbol: str = config.SYMBOL,
                  primary_name: str = config.AI_PRIMARY_PROVIDER,
-                 fallback_name: str = config.AI_FALLBACK_PROVIDER):
+                 fallback_name: str = config.AI_FALLBACK_PROVIDER,
+                 telegram=None):
         self.symbol = symbol
         self.providers = self._build_providers(primary_name, fallback_name)
         self._cache: dict = {}
+        self.telegram = telegram  # TelegramNotifier instance
 
     def _build_providers(self, primary_name: str, fallback_name: str) -> list:
         """ساخت لیست providerها (primary اول، fallback بعد)."""
@@ -388,6 +391,7 @@ class AIBiasAnalyzer:
         """
         بایاس ماکرو امروز را برمی‌گرداند.
         ابتدا cache، سپس primary provider، سپس fallback provider.
+        در صورت دریافت بایاس جدید، به تلگرام ارسال می‌شود.
         """
         # 1. Cache
         cached = self._get_cached()
@@ -427,7 +431,28 @@ class AIBiasAnalyzer:
         self._store_cache(final)
         logger.info("Daily bias stored: %s (confidence=%d%%) via %s",
                     final["bias"], final["confidence"], final["provider"])
+
+        # 6. Send to Telegram
+        self._send_bias_to_telegram(final)
+
         return final
+
+    def _send_bias_to_telegram(self, bias_data: dict) -> None:
+        """ارسال بایاس روزانه به تلگرام."""
+        if not self.telegram:
+            return
+        try:
+            bias_text = (
+                f"📊 <b>بایاس روزانه:</b> {bias_data.get('bias', 'NEUTRAL')}\n"
+                f"🎯 <b>اعتماد:</b> {bias_data.get('confidence', 0)}%\n"
+                f"💡 <b>دلیل:</b> {bias_data.get('reasoning', 'N/A')}\n"
+                f"🔑 <b>عوامل کلیدی:</b>\n"
+            )
+            for driver in bias_data.get("key_drivers", []):
+                bias_text += f"  • {driver}\n"
+            self.telegram.send_daily_ai_bias(bias_text)
+        except Exception as e:
+            logger.warning("Failed to send Telegram daily bias notification: %s", e)
 
 
 # ─────────────────────────────────────────────
