@@ -38,6 +38,7 @@ from strategy import ICT_RSI_Strategy
 from risk_manager import RiskManager
 from news_filter import NewsFilter
 from execution import TradeExecutor
+from telegram_notifier import TelegramNotifier
 
 logger = logging.getLogger("main")
 
@@ -93,6 +94,7 @@ class TradingBot:
         self.strategy = ICT_RSI_Strategy()
         self.news = NewsFilter()
         self.executor = TradeExecutor(symbol=config.SYMBOL)
+        self.telegram = TelegramNotifier()
 
         # State
         self._last_bar_time = None     # برای تشخیص کندل جدید
@@ -206,6 +208,20 @@ class TradingBot:
                     daily_bias, bias_data.get("confidence", 0),
                     bias_data.get("reasoning", "")[:80])
 
+        # ارسال اعلان تلگرام برای بایاس روزانه (فقط یک بار در روز)
+        try:
+            bias_text = (
+                f"📊 <b>بایاس روزانه:</b> {daily_bias}\n"
+                f"🎯 <b>اعتماد:</b> {bias_data.get('confidence', 0)}%\n"
+                f"💡 <b>دلیل:</b> {bias_data.get('reasoning', 'N/A')}\n"
+                f"🔑 <b>عوامل کلیدی:</b>\n"
+            )
+            for driver in bias_data.get("key_drivers", []):
+                bias_text += f"  • {driver}\n"
+            self.telegram.send_daily_ai_bias(bias_text)
+        except Exception as e:
+            logger.warning("Failed to send Telegram daily bias notification: %s", e)
+
         # ── 7. تولید سیگنال ──
         signal_obj = self.strategy.generate_signal(df_ind, daily_bias)
         if not signal_obj.is_valid:
@@ -243,6 +259,18 @@ class TradingBot:
         if ticket is not None:
             logger.info("🎉 Trade opened | ticket=%d | %s %.2f lots",
                         ticket, signal_obj.direction, validation["lot_size"])
+            # ارسال اعلان تلگرام
+            try:
+                self.telegram.send_trade_opened(
+                    symbol=config.SYMBOL,
+                    direction=signal_obj.direction,
+                    entry=signal_obj.entry,
+                    sl=signal_obj.stop_loss,
+                    tp=signal_obj.take_profit,
+                    lot_size=validation["lot_size"],
+                )
+            except Exception as e:
+                logger.warning("Failed to send Telegram trade opened notification: %s", e)
         else:
             logger.error("✗ Order execution failed.")
 
@@ -250,22 +278,54 @@ class TradingBot:
     # Closed Deal Tracking (3-loss rule update)
     # ─────────────────────────────────────────────
     def _check_closed_deals(self):
-        """بررسی معاملات بسته‌شده و به‌روزرسانی loss counter."""
+        """بررسی معاملات بسته‌شده و به‌روزرسانی loss counter + ارسال اعلان تلگرام."""
         try:
-            new_id, profits = self.executor.check_closed_deals(self._last_deal_id)
-            if not profits:
+            new_id, closed_deals = self.executor.check_closed_deals(self._last_deal_id)
+            if not closed_deals:
                 return
             # به‌روزرسانی موجودی
             acc = mt5.account_info()
             if acc:
                 self.risk_mgr.update_balance(acc.balance)
-            for p in profits:
-                if p >= 0:
+            for deal in closed_deals:
+                profit = deal["profit"]
+                if profit >= 0:
                     self.risk_mgr.record_win()
                 else:
                     self.risk_mgr.record_loss()
+
+                # محاسبه پیپ (برای XAUUSD: 1 پیپ = 0.1)
+                symbol_info = mt5.symbol_info(deal["symbol"])
+                if symbol_info:
+                    point = symbol_info.point
+                    # محاسبه سود/ضرر به پیپ بر اساس حجم و point
+                    pnl_pips = profit / (deal["volume"] * point * 10) if point > 0 else 0
+                else:
+                    pnl_pips = 0
+
+                # تشخیص دلیل بسته شدن
+                reason = "手动"
+                if deal["comment"]:
+                    comment_lower = deal["comment"].lower()
+                    if "sl" in comment_lower or "stop" in comment_lower:
+                        reason = "SL"
+                    elif "tp" in comment_lower or "take" in comment_lower:
+                        reason = "TP"
+
+                # ارسال اعلان تلگرام
+                try:
+                    self.telegram.send_trade_closed(
+                        symbol=deal["symbol"],
+                        direction=deal["direction"],
+                        pnl_usd=profit,
+                        pnl_pips=pnl_pips,
+                        reason=reason,
+                    )
+                except Exception as e:
+                    logger.warning("Failed to send Telegram trade closed notification: %s", e)
+
             self._last_deal_id = new_id
-            logger.info("Updated trade results: %d deals processed.", len(profits))
+            logger.info("Updated trade results: %d deals processed.", len(closed_deals))
         except Exception as e:
             logger.warning("Could not check closed deals: %s", e)
 

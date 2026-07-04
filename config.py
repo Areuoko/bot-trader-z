@@ -135,6 +135,12 @@ AI_MAX_RETRIES = 3     # تعداد retry برای هر provider
 BIAS_CACHE_FILE = "bias_cache.json"
 
 # ─────────────────────────────────────────────
+# Telegram Notifications
+# ─────────────────────────────────────────────
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+
+# ─────────────────────────────────────────────
 # Logging
 # ─────────────────────────────────────────────
 LOG_LEVEL = "INFO"

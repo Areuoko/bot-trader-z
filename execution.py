@@ -227,9 +227,8 @@ class TradeExecutor:
         بررسی deal‌های بسته‌شده پس از last_checked_deal_id.
 
         Returns:
-            (new_last_id, list of profits)
-            - profit > 0 → win
-            - profit < 0 → loss
+            (new_last_id, list of deal info dicts)
+            هر dict شامل: profit, symbol, direction, volume, price, comment
         """
         from datetime import datetime, timedelta, timezone
         from_date = datetime.now(timezone.utc) - timedelta(days=7)
@@ -237,11 +236,24 @@ class TradeExecutor:
         if deals is None:
             return last_checked_deal_id, []
 
-        new_profits = []
+        closed_deals = []
         max_id = last_checked_deal_id
         for d in deals:
             if d.entry == mt5.DEAL_ENTRY_OUT and d.magic == self.magic:
                 if d.ticket > last_checked_deal_id:
-                    new_profits.append(float(d.profit))
+                    # تشخیص جهت معامله از type معامله اصلی
+                    direction = "BUY" if d.type == mt5.DEAL_TYPE_SELL else "SELL"
+                    deal_info = {
+                        "ticket": d.ticket,
+                        "profit": float(d.profit),
+                        "symbol": d.symbol,
+                        "direction": direction,
+                        "volume": float(d.volume),
+                        "price": float(d.price),
+                        "comment": d.comment,
+                        "sl": float(d.sl),
+                        "tp": float(d.tp),
+                    }
+                    closed_deals.append(deal_info)
                     max_id = max(max_id, d.ticket)
-        return max_id, new_profits
+        return max_id, closed_deals
