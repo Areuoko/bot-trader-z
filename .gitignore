@@ -18,6 +18,7 @@ ENV/
 # ─────────────────────────────────────────────
 .env
 .env.*
+!.env.example
 secrets.json
 credentials.json
 *_secret*.py

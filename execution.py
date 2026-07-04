@@ -12,6 +12,7 @@ execution.py
   - لاگ‌گذاری کامل تمام مراحل
 """
 import logging
+import math
 from typing import Optional
 
 import MetaTrader5 as mt5
@@ -50,7 +51,6 @@ class TradeExecutor:
         step = self._info.volume_step
         if step <= 0:
             step = 0.01
-        import math
         lots = math.floor(volume / step) * step
         lots = max(self._info.volume_min, min(self._info.volume_max, lots))
         return round(lots, 2)
