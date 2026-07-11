@@ -7,7 +7,7 @@ execution.py
   - لات نرمالایز به volume_step (جلوگیری از retcode 10014)
   - تشخیص خودکار filling mode (جلوگیری از retcode 10030)
   - اعتبارسنجی فاصله SL/TP از stops_level بروکر
-  - اجرای تک‌پوزیشن (جلوگیری از ریسک مضاعف)
+  - کنترل تعداد پوزیشن‌ها: حداکثر یک پوزیشن باز روی هر نماد + سقف کل پوزیشن‌های باز روی همه‌ی نمادها (چک واقعی در main.py/risk_manager.py انجام می‌شود)
   - بررسی دقیق retcode بعد از order_send
   - لاگ‌گذاری کامل تمام مراحل
   - ارسال خودکار اعلان تلگرام هنگام باز شدن معامله
@@ -90,12 +90,27 @@ class TradeExecutor:
     # ─────────────────────────────────────────────
     # Position Management
     # ─────────────────────────────────────────────
-    def has_open_position(self) -> bool:
-        """آیا پوزیشن باز متعلق به این ربات وجود دارد؟ (تک‌پوزیشن)"""
-        positions = mt5.positions_get(symbol=self.symbol)
+    def has_open_position(self, symbol: str = None) -> bool:
+        """
+        آیا پوزیشن باز متعلق به این ربات روی 'symbol' وجود دارد؟
+        اگر symbol داده نشود، نماد خودِ این executor (self.symbol) چک می‌شود.
+        """
+        sym = symbol or self.symbol
+        positions = mt5.positions_get(symbol=sym)
         if positions is None:
             return False
         return any(p.magic == self.magic for p in positions)
+
+    def count_open_positions_all_symbols(self) -> int:
+        """
+        تعداد کل پوزیشن‌های باز متعلق به این ربات، روی همه‌ی نمادها.
+        دیباگ: چون MAGIC_NUMBER بین همه‌ی executorها (همه‌ی نمادها) مشترک است،
+        این متد را می‌توان روی هر executor صدا زد و نتیجه یکسان است.
+        """
+        positions = mt5.positions_get()  # بدون فیلتر symbol → همه‌ی نمادهای حساب
+        if positions is None:
+            return 0
+        return sum(1 for p in positions if p.magic == self.magic)
 
     def _get_trade_price(self, direction: str) -> float:
         """

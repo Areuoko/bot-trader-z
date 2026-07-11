@@ -75,7 +75,7 @@ class TradingBot:
 
     def __init__(self):
         logger.info("=" * 60)
-        logger.info("Bot Trader Z — Initializing")
+        logger.info("Bot Trader Z — Initializing (multi-symbol)")
         logger.info("=" * 60)
 
         # 1. MT5 Connection
@@ -83,32 +83,47 @@ class TradingBot:
         if not self.connector.connect():
             raise RuntimeError("Cannot connect to MT5. Aborting.")
 
-        # 2. Symbol info
-        self.symbol_info = mt5.symbol_info(config.SYMBOL)
-        if self.symbol_info is None:
-            raise RuntimeError(f"Cannot get symbol_info for {config.SYMBOL}")
+        # 2. Symbols & their info (یکی به‌ازای هر نماد)
+        self.symbols = config.SYMBOLS
+        self.symbol_infos = {}
+        for sym in self.symbols:
+            info = mt5.symbol_info(sym)
+            if info is None:
+                raise RuntimeError(f"Cannot get symbol_info for {sym}")
+            if not info.visible:
+                if not mt5.symbol_select(sym, True):
+                    raise RuntimeError(f"symbol_select failed for {sym}")
+                info = mt5.symbol_info(sym)  # دوباره بخوان بعد از select
+            self.symbol_infos[sym] = info
 
-        # 3. Components
+        # 3. Shared components (بین همه‌ی نمادها مشترک)
         self.session = SessionManager()
         self.telegram = TelegramNotifier()
-        self.ai_bias = AIBiasAnalyzer(telegram=self.telegram)
-        self.strategy = ICT_RSI_Strategy()
         self.news = NewsFilter()
-        self.executor = TradeExecutor(symbol=config.SYMBOL, telegram=self.telegram)
 
-        # State
-        self._last_bar_time = None     # برای تشخیص کندل جدید
-        self._last_deal_id = 0         # برای tracking wins/losses
+        # 4. Per-symbol components
+        self.ai_biases = {sym: AIBiasAnalyzer(symbol=sym, telegram=self.telegram)
+                          for sym in self.symbols}
+        self.strategies = {
+            sym: ICT_RSI_Strategy(
+                sweep_buffer_pts=config.SWEEP_BUFFER_BY_SYMBOL.get(sym, config.SWEEP_BUFFER_PTS)
+            )
+            for sym in self.symbols
+        }
+        self.executors = {sym: TradeExecutor(symbol=sym, telegram=self.telegram)
+                          for sym in self.symbols}
+
+        # State (per-symbol جایی که لازم است)
+        self._last_bar_time = {sym: None for sym in self.symbols}  # تشخیص کندل جدید هر نماد
+        self._last_deal_id = 0         # برای tracking wins/losses (سراسری کافی است، magic مشترک است)
         self._running = True
 
-        # Persistent RiskManager for loss tracking (avoids new instance each tick)
+        # Persistent RiskManager — سراسری و مشترک بین همه‌ی نمادها
+        # (شمارنده‌ی 3-ضرر باید بین همه‌ی نمادها یکی باشد، پس فقط یک نمونه ساخته می‌شود)
         acc = mt5.account_info()
-        self.risk_mgr = RiskManager(
-            balance=acc.balance if acc else 0.0,
-            symbol_info=self.symbol_info,
-        )
+        self.risk_mgr = RiskManager(balance=acc.balance if acc else 0.0)
 
-        logger.info("All components initialized. Bot ready.")
+        logger.info("All components initialized for symbols: %s. Bot ready.", self.symbols)
         logger.info("=" * 60)
 
     # ─────────────────────────────────────────────
@@ -141,7 +156,7 @@ class TradingBot:
     # Single Tick (one cycle of checks)
     # ─────────────────────────────────────────────
     def _tick(self):
-        """اجرای یک چرخه‌ی کامل از چک‌ها."""
+        """اجرای یک چرخه‌ی کامل از چک‌ها؛ چک‌های سراسری یک‌بار، سپس لوپ روی هر نماد."""
 
         # ── 0. بررسی اتصال ──
         if not self.connector.is_connected:
@@ -150,10 +165,10 @@ class TradingBot:
                 logger.error("Reconnect failed. Skipping tick.")
                 return
 
-        # ── 0b. بررسی deal‌های بسته‌شده (برای قانون 3 ضرر) ──
+        # ── 0b. بررسی deal‌های بسته‌شده (برای قانون 3 ضرر سراسری) ──
         self._check_closed_deals()
 
-        # ── 1. چک سشن ──
+        # ── 1. چک سشن (سراسری - مستقل از نماد) ──
         status = self.session.get_status()
         if not status["can_trade"]:
             logger.debug("Outside trading session (London/NY). "
@@ -163,7 +178,7 @@ class TradingBot:
         logger.debug("✓ Session OK (London=%s NY=%s)",
                       status["london_open"], status["new_york_open"])
 
-        # ── 2. چک اخبار ──
+        # ── 2. چک اخبار (سراسری - USD روی هر سه نماد اثر دارد) ──
         if self.news.is_blackout():
             nxt = self.news.get_next_high_impact()
             nxt_str = (f"{nxt['event']} @ {nxt['time'].isoformat()}"
@@ -172,70 +187,99 @@ class TradingBot:
             return
         logger.debug("✓ News OK (no blackout)")
 
-        # ── 3. چک پوزیشن باز ──
-        if self.executor.has_open_position():
-            logger.debug("Position already open. Managing (waiting for close).")
+        # ── 3. تعداد کل پوزیشن‌های باز ربات (روی هر executor یکسان است، magic مشترک) ──
+        open_total = self.executors[self.symbols[0]].count_open_positions_all_symbols()
+        if open_total >= config.MAX_OPEN_POSITIONS_TOTAL:
+            logger.debug("Max total open positions reached (%d/%d). Skipping all symbols.",
+                         open_total, config.MAX_OPEN_POSITIONS_TOTAL)
             return
 
-        # ── 4. تشخیص کندل جدید M15 ──
-        df = self.connector.get_candles(count=config.CANDLE_COUNT)
+        # ── 4. لوپ روی هر نماد ──
+        for sym in self.symbols:
+            opened = self._tick_symbol(sym, open_total)
+            if opened:
+                open_total += 1  # جلوگیری از عبور از سقف کل در همین چرخه
+
+    def _tick_symbol(self, sym: str, open_total: int) -> bool:
+        """
+        اجرای چک‌های مخصوص یک نماد (کندل جدید → اندیکاتور → بایاس → سیگنال → ریسک → اجرا).
+
+        Args:
+            sym: نماد مورد بررسی
+            open_total: تعداد کل پوزیشن‌های باز ربات (روی همه‌ی نمادها) قبل از این نماد
+
+        Returns:
+            True اگر معامله‌ی جدیدی روی این نماد باز شد.
+        """
+        executor = self.executors[sym]
+        symbol_info = self.symbol_infos[sym]
+
+        # ── چک پوزیشن باز مخصوص همین نماد ──
+        if executor.has_open_position(sym):
+            logger.debug("[%s] Position already open. Skipping.", sym)
+            return False
+
+        # ── تشخیص کندل جدید M15 ──
+        df = self.connector.get_candles(symbol=sym, count=config.CANDLE_COUNT)
         if df.empty:
-            logger.warning("No candle data. Skipping.")
-            return
+            logger.warning("[%s] No candle data. Skipping.", sym)
+            return False
 
         # دیباگ: آخرین کندل در حال تشکیل است → حذف برای جلوگیری از repaint
         df_closed = df.iloc[:-1]
         latest_closed_time = df_closed.index[-1]
 
-        if self._last_bar_time == latest_closed_time:
-            # هنوز کندل جدیدی بسته نشده
-            logger.debug("No new M15 bar (last=%s).", latest_closed_time)
-            return
+        if self._last_bar_time[sym] == latest_closed_time:
+            # هنوز کندل جدیدی روی این نماد بسته نشده
+            logger.debug("[%s] No new M15 bar (last=%s).", sym, latest_closed_time)
+            return False
 
-        logger.info("New M15 bar detected: %s", latest_closed_time)
-        self._last_bar_time = latest_closed_time
+        logger.info("[%s] New M15 bar detected: %s", sym, latest_closed_time)
+        self._last_bar_time[sym] = latest_closed_time
 
-        # ── 5. محاسبه اندیکاتورها + سیگنال ──
-        df_ind = self.strategy.calculate_indicators(df_closed)
+        # ── محاسبه اندیکاتورها + سیگنال ──
+        strategy = self.strategies[sym]
+        df_ind = strategy.calculate_indicators(df_closed)
         if df_ind.empty:
-            logger.warning("Indicator calculation returned empty.")
-            return
+            logger.warning("[%s] Indicator calculation returned empty.", sym)
+            return False
 
-        # ── 6. بایاس روزانه از AI ──
-        bias_data = self.ai_bias.get_daily_bias()
+        # ── بایاس روزانه از AI (مخصوص همین نماد، کش جداگانه) ──
+        bias_data = self.ai_biases[sym].get_daily_bias()
         daily_bias = bias_data.get("bias", "NEUTRAL")
-        logger.info("Daily bias: %s (confidence=%d%%) — %s",
-                    daily_bias, bias_data.get("confidence", 0),
+        logger.info("[%s] Daily bias: %s (confidence=%d%%) — %s",
+                    sym, daily_bias, bias_data.get("confidence", 0),
                     bias_data.get("reasoning", "")[:80])
 
-        # ── 7. تولید سیگنال ──
-        signal_obj = self.strategy.generate_signal(df_ind, daily_bias)
+        # ── تولید سیگنال ──
+        signal_obj = strategy.generate_signal(df_ind, daily_bias)
         if not signal_obj.is_valid:
-            logger.info("No valid signal this bar. Reason: %s", signal_obj.reason)
-            return
-        logger.info("Signal generated: %s | entry=%.5f SL=%.5f TP=%.5f | %s",
-                    signal_obj.direction, signal_obj.entry,
+            logger.info("[%s] No valid signal this bar. Reason: %s", sym, signal_obj.reason)
+            return False
+        logger.info("[%s] Signal generated: %s | entry=%.5f SL=%.5f TP=%.5f | %s",
+                    sym, signal_obj.direction, signal_obj.entry,
                     signal_obj.stop_loss, signal_obj.take_profit,
                     signal_obj.reason)
 
-        # ── 8. Risk Manager ──
-        # اسپرد فعلی
-        tick = mt5.symbol_info_tick(config.SYMBOL)
-        spread_pts = (tick.ask - tick.bid) / self.symbol_info.point if tick else 9999
-        # موجودی به‌روز
+        # ── Risk Manager ──
+        tick = mt5.symbol_info_tick(sym)
+        spread_pts = (tick.ask - tick.bid) / symbol_info.point if tick else 9999
         acc = mt5.account_info()
         self.risk_mgr.update_balance(acc.balance if acc else 0.0)
-        validation = self.risk_mgr.validate_signal(signal_obj, spread_pts)
-        if not validation["approved"]:
-            logger.info("✗ Signal rejected by RiskManager: %s",
-                        validation["reason"])
-            return
-        logger.info("✓ RiskManager approved | lots=%.2f RR=1:%.2f risk=$%.2f",
-                    validation["lot_size"], validation["rr"],
-                    validation["risk_amount"])
 
-        # ── 9. اجرای سفارش ──
-        ticket = self.executor.place_order(
+        validation = self.risk_mgr.validate_signal(
+            signal_obj, spread_pts, symbol_info,
+            open_positions_total=open_total,
+            has_position_this_symbol=False,  # از قبل بالاتر چک شد
+        )
+        if not validation["approved"]:
+            logger.info("[%s] ✗ Signal rejected by RiskManager: %s", sym, validation["reason"])
+            return False
+        logger.info("[%s] ✓ RiskManager approved | lots=%.2f RR=1:%.2f risk=$%.2f",
+                    sym, validation["lot_size"], validation["rr"], validation["risk_amount"])
+
+        # ── اجرای سفارش ──
+        ticket = executor.place_order(
             direction=signal_obj.direction,
             lot_size=validation["lot_size"],
             stop_loss=signal_obj.stop_loss,
@@ -243,18 +287,28 @@ class TradingBot:
             entry_hint=signal_obj.entry,
         )
         if ticket is not None:
-            logger.info("🎉 Trade opened | ticket=%d | %s %.2f lots",
-                        ticket, signal_obj.direction, validation["lot_size"])
+            logger.info("[%s] 🎉 Trade opened | ticket=%d | %s %.2f lots",
+                        sym, ticket, signal_obj.direction, validation["lot_size"])
+            return True
         else:
-            logger.error("✗ Order execution failed.")
+            logger.error("[%s] ✗ Order execution failed.", sym)
+            return False
 
     # ─────────────────────────────────────────────
     # Closed Deal Tracking (3-loss rule update + Telegram notification)
     # ─────────────────────────────────────────────
     def _check_closed_deals(self):
-        """بررسی معاملات بسته‌شده و به‌روزرسانی loss counter + ارسال اعلان تلگرام."""
+        """
+        بررسی معاملات بسته‌شده و به‌روزرسانی loss counter + ارسال اعلان تلگرام.
+
+        دیباگ مهم: check_closed_deals در execution.py بر اساس magic فیلتر می‌کند
+        نه symbol، پس دیل‌های همه‌ی نمادها را برمی‌گرداند. چون magic بین همه‌ی
+        executorها مشترک است، کافی است فقط یک‌بار (روی یک executor دلخواه) صدا
+        زده شود؛ صدا زدن آن برای هر نماد باعث دابل/تریپل‌کانت شدن می‌شود.
+        """
         try:
-            new_id, closed_deals = self.executor.check_closed_deals(self._last_deal_id)
+            any_executor = self.executors[self.symbols[0]]
+            new_id, closed_deals = any_executor.check_closed_deals(self._last_deal_id)
             if not closed_deals:
                 return
             # به‌روزرسانی موجودی

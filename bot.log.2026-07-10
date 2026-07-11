@@ -1,0 +1,587 @@
+2026-07-10 14:10:31,827 | INFO     | main | ============================================================
+2026-07-10 14:10:31,829 | INFO     | main | Bot Trader Z — Initializing
+2026-07-10 14:10:31,830 | INFO     | main | ============================================================
+2026-07-10 14:10:34,737 | INFO     | mt5_connector | Connected ✓ | login=91287658 | server=LiteFinance-MT5-Demo | balance=0.00 USD
+2026-07-10 14:10:34,773 | INFO     | telegram_notifier | TelegramNotifier enabled | chat_id=8985022238
+2026-07-10 14:10:34,774 | INFO     | strategy | ICT+RSI Strategy initialized | RSI=14, SwingLB=3, RR=2.0
+2026-07-10 14:10:34,787 | INFO     | news_filter | News calendar loaded: 6 valid events (relevant currencies: ['USD']).
+2026-07-10 14:10:34,787 | INFO     | execution | TradeExecutor ready | symbol=XAUUSD_o | digits=2 | stops_level=0 pts
+2026-07-10 14:10:34,788 | INFO     | risk_manager | RiskManager ready | balance=0.00 | risk=1.0% | minRR=1:2.0 | volMin=0.01 volMax=100.00 volStep=0.01
+2026-07-10 14:10:34,788 | INFO     | main | All components initialized. Bot ready.
+2026-07-10 14:10:34,788 | INFO     | main | ============================================================
+2026-07-10 14:10:34,788 | INFO     | main | Main loop started (interval=15s)
+2026-07-10 14:10:34,794 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 09:45:00+00:00 to 2026-07-10 13:30:00+00:00
+2026-07-10 14:10:34,796 | INFO     | main | New M15 bar detected: 2026-07-10 13:15:00+00:00
+2026-07-10 14:10:34,832 | INFO     | ai_bias | [primary/gemini] AI call attempt 1/3 -> gemini-2.5-flash (https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)
+2026-07-10 14:10:35,368 | ERROR    | ai_bias | Provider gemini auth failed (HTTP 403): <!DOCTYPE html>
+<html lang=en>
+  <meta charset=utf-8>
+  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+  <title>Error 403 (Forbidden)!!1</title>
+  <style>
+    *{ma
+2026-07-10 14:10:35,371 | INFO     | ai_bias | Switching from gemini to next provider...
+2026-07-10 14:10:35,371 | INFO     | ai_bias | [fallback/openrouter] AI call attempt 1/3 -> nvidia/nemotron-3-ultra-550b-a55b:free (https://openrouter.ai/api/v1/chat/completions)
+2026-07-10 14:10:39,687 | INFO     | ai_bias | Provider openrouter response received (35 tokens approx).
+2026-07-10 14:10:39,691 | INFO     | ai_bias | Daily bias stored: BULLISH (confidence=70%) via openrouter
+2026-07-10 14:10:49,715 | ERROR    | telegram_notifier | Telegram request timed out.
+2026-07-10 14:10:49,716 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 14:10:49,719 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 14:11:04,722 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 09:45:00+00:00 to 2026-07-10 13:30:00+00:00
+2026-07-10 14:11:19,727 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 09:45:00+00:00 to 2026-07-10 13:30:00+00:00
+2026-07-10 14:11:34,731 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 09:45:00+00:00 to 2026-07-10 13:30:00+00:00
+2026-07-10 14:11:39,290 | INFO     | main | Stop signal received. Shutting down...
+2026-07-10 14:11:49,732 | INFO     | mt5_connector | Disconnected from MetaTrader 5.
+2026-07-10 14:11:49,732 | INFO     | main | Bot stopped cleanly.
+2026-07-10 15:09:23,278 | INFO     | main | ============================================================
+2026-07-10 15:09:23,279 | INFO     | main | Bot Trader Z — Initializing
+2026-07-10 15:09:23,279 | INFO     | main | ============================================================
+2026-07-10 15:09:27,503 | INFO     | mt5_connector | Connected ✓ | login=91287658 | server=LiteFinance-MT5-Demo | balance=10000.00 USD
+2026-07-10 15:09:27,519 | INFO     | telegram_notifier | TelegramNotifier enabled | chat_id=8985022238
+2026-07-10 15:09:27,519 | INFO     | strategy | ICT+RSI Strategy initialized | RSI=14, SwingLB=3, RR=2.0
+2026-07-10 15:09:27,524 | INFO     | news_filter | News calendar loaded: 6 valid events (relevant currencies: ['USD']).
+2026-07-10 15:09:27,525 | INFO     | execution | TradeExecutor ready | symbol=XAUUSD_o | digits=2 | stops_level=0 pts
+2026-07-10 15:09:27,525 | INFO     | risk_manager | RiskManager ready | balance=10000.00 | risk=1.0% | minRR=1:2.0 | volMin=0.01 volMax=100.00 volStep=0.01
+2026-07-10 15:09:27,526 | INFO     | main | All components initialized. Bot ready.
+2026-07-10 15:09:27,526 | INFO     | main | ============================================================
+2026-07-10 15:09:27,526 | INFO     | main | Main loop started (interval=15s)
+2026-07-10 15:09:27,548 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:09:27,549 | INFO     | main | New M15 bar detected: 2026-07-10 14:15:00+00:00
+2026-07-10 15:09:27,592 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 15:09:27,593 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 15:09:27,594 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 15:09:42,598 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:09:57,602 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:10:12,606 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:10:27,610 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:10:42,614 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:10:57,618 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:11:12,622 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:11:27,626 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:11:42,629 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:11:57,634 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:12:12,637 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:12:27,642 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:12:42,646 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:12:57,650 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:13:12,654 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 10:45:00+00:00 to 2026-07-10 14:30:00+00:00
+2026-07-10 15:13:16,890 | INFO     | main | Stop signal received. Shutting down...
+2026-07-10 15:13:27,655 | INFO     | mt5_connector | Disconnected from MetaTrader 5.
+2026-07-10 15:13:27,655 | INFO     | main | Bot stopped cleanly.
+2026-07-10 15:17:39,907 | INFO     | main | ============================================================
+2026-07-10 15:17:39,908 | INFO     | main | Bot Trader Z — Initializing
+2026-07-10 15:17:39,908 | INFO     | main | ============================================================
+2026-07-10 15:17:39,910 | INFO     | mt5_connector | Connected ✓ | login=91287658 | server=LiteFinance-MT5-Demo | balance=10000.00 USD
+2026-07-10 15:17:39,915 | INFO     | telegram_notifier | TelegramNotifier enabled | chat_id=8985022238
+2026-07-10 15:17:39,916 | INFO     | strategy | ICT+RSI Strategy initialized | RSI=14, SwingLB=3, RR=2.0
+2026-07-10 15:17:39,916 | INFO     | news_filter | News calendar loaded: 6 valid events (relevant currencies: ['USD']).
+2026-07-10 15:17:39,916 | INFO     | execution | TradeExecutor ready | symbol=XAUUSD_o | digits=2 | stops_level=0 pts
+2026-07-10 15:17:39,917 | INFO     | risk_manager | RiskManager ready | balance=10000.00 | risk=1.0% | minRR=1:2.0 | volMin=0.01 volMax=100.00 volStep=0.01
+2026-07-10 15:17:39,917 | INFO     | main | All components initialized. Bot ready.
+2026-07-10 15:17:39,917 | INFO     | main | ============================================================
+2026-07-10 15:17:39,917 | INFO     | main | Main loop started (interval=15s)
+2026-07-10 15:17:39,921 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:17:39,921 | INFO     | main | New M15 bar detected: 2026-07-10 14:30:00+00:00
+2026-07-10 15:17:39,940 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 15:17:39,940 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 15:17:39,941 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 15:17:54,945 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:17:55,401 | INFO     | main | Stop signal received. Shutting down...
+2026-07-10 15:18:09,947 | INFO     | mt5_connector | Disconnected from MetaTrader 5.
+2026-07-10 15:18:09,947 | INFO     | main | Bot stopped cleanly.
+2026-07-10 15:18:30,302 | INFO     | main | ============================================================
+2026-07-10 15:18:30,302 | INFO     | main | Bot Trader Z — Initializing
+2026-07-10 15:18:30,303 | INFO     | main | ============================================================
+2026-07-10 15:18:33,131 | INFO     | mt5_connector | Connected ✓ | login=91287658 | server=LiteFinance-MT5-Demo | balance=10000.00 USD
+2026-07-10 15:18:33,137 | INFO     | telegram_notifier | TelegramNotifier enabled | chat_id=8985022238
+2026-07-10 15:18:33,137 | INFO     | strategy | ICT+RSI Strategy initialized | RSI=14, SwingLB=3, RR=2.0
+2026-07-10 15:18:33,137 | INFO     | news_filter | News calendar loaded: 6 valid events (relevant currencies: ['USD']).
+2026-07-10 15:18:33,138 | INFO     | execution | TradeExecutor ready | symbol=XAUUSD_o | digits=2 | stops_level=0 pts
+2026-07-10 15:18:33,138 | INFO     | risk_manager | RiskManager ready | balance=10000.00 | risk=1.0% | minRR=1:2.0 | volMin=0.01 volMax=100.00 volStep=0.01
+2026-07-10 15:18:33,138 | INFO     | main | All components initialized. Bot ready.
+2026-07-10 15:18:33,138 | INFO     | main | ============================================================
+2026-07-10 15:18:33,138 | INFO     | main | Main loop started (interval=15s)
+2026-07-10 15:18:33,144 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:18:33,144 | INFO     | main | New M15 bar detected: 2026-07-10 14:30:00+00:00
+2026-07-10 15:18:33,164 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 15:18:33,164 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 15:18:33,165 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 15:18:48,169 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:19:03,173 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:19:18,177 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:19:33,181 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:19:48,183 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:20:03,187 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:20:18,191 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:20:33,196 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:00:00+00:00 to 2026-07-10 14:45:00+00:00
+2026-07-10 15:20:44,853 | INFO     | main | Stop signal received. Shutting down...
+2026-07-10 15:20:48,197 | INFO     | mt5_connector | Disconnected from MetaTrader 5.
+2026-07-10 15:20:48,197 | INFO     | main | Bot stopped cleanly.
+2026-07-10 15:48:15,402 | INFO     | main | ============================================================
+2026-07-10 15:48:15,402 | INFO     | main | Bot Trader Z — Initializing
+2026-07-10 15:48:15,403 | INFO     | main | ============================================================
+2026-07-10 15:48:18,222 | INFO     | mt5_connector | Connected ✓ | login=91287658 | server=LiteFinance-MT5-Demo | balance=10000.00 USD
+2026-07-10 15:48:18,229 | INFO     | telegram_notifier | TelegramNotifier enabled | chat_id=8985022238
+2026-07-10 15:48:18,230 | INFO     | strategy | ICT+RSI Strategy initialized | RSI=14, SwingLB=3, RR=2.0
+2026-07-10 15:48:18,231 | INFO     | news_filter | News calendar loaded: 6 valid events (relevant currencies: ['USD']).
+2026-07-10 15:48:18,231 | INFO     | execution | TradeExecutor ready | symbol=XAUUSD_o | digits=2 | stops_level=0 pts
+2026-07-10 15:48:18,231 | INFO     | risk_manager | RiskManager ready | balance=10000.00 | risk=1.0% | minRR=1:2.0 | volMin=0.01 volMax=100.00 volStep=0.01
+2026-07-10 15:48:18,231 | INFO     | main | All components initialized. Bot ready.
+2026-07-10 15:48:18,232 | INFO     | main | ============================================================
+2026-07-10 15:48:18,232 | INFO     | main | Main loop started (interval=15s)
+2026-07-10 15:48:18,236 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:48:18,236 | INFO     | main | New M15 bar detected: 2026-07-10 15:00:00+00:00
+2026-07-10 15:48:18,261 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 15:48:18,262 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 15:48:18,262 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 15:48:33,266 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:48:48,270 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:49:03,274 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:49:18,278 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:49:33,282 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:49:48,286 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:50:03,290 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:50:18,294 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:50:33,298 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:50:48,302 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:51:03,306 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:51:18,309 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:51:33,313 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:51:48,316 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:52:03,321 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:52:18,325 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:52:33,328 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:52:48,333 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:53:03,336 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:53:18,340 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:53:33,344 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:53:48,348 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:54:03,352 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:54:18,355 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:54:33,359 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:54:48,364 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:55:03,367 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:55:18,370 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:55:33,374 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:55:48,377 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:56:03,381 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:56:18,385 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:56:33,389 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:56:48,393 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:57:03,396 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:57:18,401 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:57:33,405 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:57:48,408 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:58:03,412 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:58:18,416 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:58:33,420 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:58:48,424 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:59:03,427 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:59:18,431 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:59:33,435 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 15:59:48,439 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:30:00+00:00 to 2026-07-10 15:15:00+00:00
+2026-07-10 16:00:03,443 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:00:03,444 | INFO     | main | New M15 bar detected: 2026-07-10 15:15:00+00:00
+2026-07-10 16:00:03,460 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 16:00:03,461 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 16:00:03,462 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 16:00:18,465 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:00:33,469 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:00:48,473 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:01:03,477 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:01:18,480 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:01:33,484 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:01:48,488 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:02:03,492 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:02:18,496 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:02:33,499 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:02:48,503 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:03:03,507 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:03:18,511 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:03:33,514 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:03:48,519 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:04:03,523 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:04:18,526 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:04:33,530 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:04:48,534 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:05:03,538 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:05:18,541 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:05:33,545 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:05:48,549 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:06:03,553 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:06:18,556 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:06:33,560 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:06:48,564 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:07:03,568 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:07:18,572 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:07:33,576 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:07:48,580 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:08:03,583 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:08:18,587 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:08:33,591 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:08:48,594 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:09:03,598 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:09:18,602 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:09:33,605 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:09:48,609 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:10:03,613 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:10:18,617 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:10:33,621 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:10:48,625 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:11:03,629 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:11:18,633 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:11:33,636 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:11:48,640 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:12:03,644 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:12:18,648 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:12:33,652 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:12:48,655 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:13:03,659 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:13:18,663 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:13:33,665 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:13:48,669 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:14:03,673 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:14:18,677 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:14:33,681 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:14:48,684 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 11:45:00+00:00 to 2026-07-10 15:30:00+00:00
+2026-07-10 16:15:03,687 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:15:03,687 | INFO     | main | New M15 bar detected: 2026-07-10 15:30:00+00:00
+2026-07-10 16:15:03,704 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 16:15:03,705 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 16:15:03,706 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 16:15:18,710 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:15:33,714 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:15:48,718 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:16:03,722 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:16:18,725 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:16:33,729 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:16:48,733 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:17:03,737 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:17:18,740 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:17:33,744 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:17:48,748 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:18:03,752 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:18:18,757 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:18:33,761 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:18:48,765 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:19:03,768 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:19:18,773 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:19:33,776 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:19:48,780 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:20:03,784 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:20:18,788 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:20:33,792 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:20:48,796 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:21:03,801 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:21:18,805 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:21:33,809 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:21:48,813 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:22:03,817 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:22:18,822 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:22:33,825 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:22:48,829 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:23:03,833 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:23:18,836 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:23:33,840 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:23:48,843 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:24:03,846 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:24:18,849 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:24:33,852 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:24:48,855 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:25:03,860 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:25:18,864 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:25:33,867 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:25:48,871 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:26:03,875 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:26:18,878 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:26:33,882 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:26:48,886 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:27:03,890 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:27:18,893 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:27:33,898 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:27:48,901 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:28:03,905 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:28:18,909 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:28:33,913 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:28:48,917 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:29:03,920 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:29:18,924 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:29:33,928 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:29:48,932 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:00:00+00:00 to 2026-07-10 15:45:00+00:00
+2026-07-10 16:30:03,936 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:30:03,937 | INFO     | main | New M15 bar detected: 2026-07-10 15:45:00+00:00
+2026-07-10 16:30:03,958 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 16:30:03,958 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 16:30:03,959 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 16:30:18,963 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:30:33,966 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:30:48,971 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:31:03,974 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:31:18,977 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:31:33,980 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:31:48,984 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:32:03,988 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:32:18,992 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:32:33,996 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:32:49,000 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:33:04,005 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:33:19,008 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:33:34,014 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:33:49,017 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:34:04,023 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:34:19,027 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:34:34,030 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:34:49,034 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:35:04,038 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:35:19,042 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:35:34,046 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:35:49,049 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:36:04,053 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:36:19,058 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:36:34,062 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:36:49,065 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:37:04,069 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:37:19,073 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:37:34,076 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:37:49,080 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:38:04,084 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:38:19,088 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:38:34,092 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:38:49,096 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:39:04,100 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:39:19,104 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:39:34,107 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:39:49,112 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:40:04,116 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:40:19,120 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:40:34,125 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:40:49,129 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:41:04,132 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:41:19,136 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:41:34,141 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:41:49,145 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:42:04,150 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:42:19,154 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:42:34,157 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:42:49,161 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:43:04,165 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:43:19,169 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:43:34,173 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:43:49,176 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:44:04,180 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:44:19,184 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:44:34,188 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:44:49,192 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:15:00+00:00 to 2026-07-10 16:00:00+00:00
+2026-07-10 16:45:04,196 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:45:04,196 | INFO     | main | New M15 bar detected: 2026-07-10 16:00:00+00:00
+2026-07-10 16:45:04,214 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 16:45:04,215 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 16:45:04,216 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 16:45:19,219 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:45:34,223 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:45:49,227 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:46:04,230 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:46:19,234 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:46:34,238 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:46:49,242 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:47:04,245 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:47:19,250 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:47:34,253 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:47:49,258 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:48:04,262 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:48:19,266 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:48:34,270 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:48:49,273 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:49:04,277 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:49:19,282 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:49:34,285 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:49:49,289 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:50:04,292 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:50:19,296 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:50:34,301 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:50:49,305 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:51:04,308 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:51:19,312 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:51:34,316 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:51:49,320 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:52:04,324 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:52:19,328 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:52:34,333 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:52:49,337 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:53:04,341 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:53:19,345 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:53:34,349 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:53:49,353 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:54:04,357 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:54:19,360 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:54:34,364 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:54:49,368 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:55:04,371 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:55:19,375 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:55:34,378 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:55:49,381 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:56:04,384 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:56:19,388 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:56:34,392 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:56:49,396 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:57:04,400 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:57:19,403 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:57:34,407 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:57:49,411 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:58:04,416 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:58:19,419 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:58:34,423 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:58:49,427 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:59:04,431 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:59:19,434 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:59:34,438 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 16:59:49,442 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:30:00+00:00 to 2026-07-10 16:15:00+00:00
+2026-07-10 17:00:04,446 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:00:04,447 | INFO     | main | New M15 bar detected: 2026-07-10 16:15:00+00:00
+2026-07-10 17:00:04,464 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 17:00:04,464 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 17:00:04,465 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 17:00:19,469 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:00:34,473 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:00:49,477 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:01:04,481 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:01:19,485 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:01:34,489 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:01:49,493 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:02:04,497 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:02:19,500 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:02:34,504 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:02:49,508 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:03:04,512 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:03:19,516 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:03:34,521 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:03:49,524 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:04:04,528 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:04:19,532 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:04:34,536 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:04:49,540 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:05:04,544 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:05:19,547 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:05:34,551 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:05:49,555 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:06:04,559 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:06:19,562 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:06:34,567 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:06:49,570 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:07:04,575 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:07:19,579 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:07:34,583 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:07:49,586 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:08:04,590 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:08:19,594 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:08:34,598 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:08:49,601 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:09:04,605 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:09:19,609 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:09:34,613 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:09:49,616 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:10:04,621 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:10:19,624 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:10:34,627 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:10:49,632 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:11:04,636 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:11:19,639 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:11:34,643 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:11:49,648 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:12:04,651 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:12:19,655 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:12:34,659 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:12:49,662 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:13:04,666 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:13:19,670 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:13:34,674 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:13:49,677 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:14:04,681 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:14:19,685 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:14:34,689 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:14:49,693 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 12:45:00+00:00 to 2026-07-10 16:30:00+00:00
+2026-07-10 17:15:04,697 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:15:04,698 | INFO     | main | New M15 bar detected: 2026-07-10 16:30:00+00:00
+2026-07-10 17:15:04,716 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 17:15:04,717 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 17:15:04,718 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 17:15:19,721 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:15:34,725 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:15:49,728 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:16:04,733 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:16:19,737 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:16:34,740 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:16:49,744 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:17:04,748 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:17:19,752 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:17:34,755 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:17:49,759 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:18:04,763 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:18:19,767 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:18:34,771 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:18:49,775 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:19:04,779 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:19:19,783 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:19:34,786 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:19:49,791 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:20:04,796 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:20:19,799 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:20:34,804 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:20:49,809 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:21:04,814 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:21:19,818 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:21:34,824 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:21:49,826 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:22:04,829 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:22:19,832 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:22:34,835 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:22:49,838 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:23:04,841 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:23:19,844 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:23:34,849 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:23:49,852 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:24:04,856 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:24:19,859 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:24:34,863 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:24:49,866 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:25:04,871 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:25:19,875 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:25:34,879 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:25:49,883 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:26:04,887 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:26:19,891 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:26:34,895 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:26:49,898 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:27:04,902 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:27:19,906 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:27:34,910 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:27:49,913 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:28:04,917 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:28:19,921 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:28:34,925 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:28:49,929 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:29:04,933 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:29:19,937 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:29:34,941 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:29:49,945 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:00:00+00:00 to 2026-07-10 16:45:00+00:00
+2026-07-10 17:30:04,948 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:30:04,949 | INFO     | main | New M15 bar detected: 2026-07-10 16:45:00+00:00
+2026-07-10 17:30:04,972 | INFO     | ai_bias | Bias cache HIT for 2026-07-10.
+2026-07-10 17:30:04,973 | INFO     | main | Daily bias: BULLISH (confidence=70%) — Fed rate cut expectations, geopolitical risks, and central bank buying support g
+2026-07-10 17:30:04,974 | INFO     | main | No valid signal this bar. Reason: no setup | bias=BULLISH
+2026-07-10 17:30:19,977 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:30:34,981 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:30:49,985 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:31:04,989 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:31:19,993 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:31:34,997 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:31:50,001 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:32:05,005 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:32:20,009 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:32:35,012 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:32:50,016 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:33:05,021 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:33:20,025 | INFO     | mt5_connector | Fetched 200 M15 candles for XAUUSD_o | from 2026-07-08 13:15:00+00:00 to 2026-07-10 17:00:00+00:00
+2026-07-10 17:33:28,925 | INFO     | main | Stop signal received. Shutting down...
+2026-07-10 17:33:35,026 | INFO     | mt5_connector | Disconnected from MetaTrader 5.
+2026-07-10 17:33:35,026 | INFO     | main | Bot stopped cleanly.

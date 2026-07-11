@@ -171,7 +171,8 @@ class AIBiasAnalyzer:
     # Cache Management (daily)
     # ─────────────────────────────────────────────
     def _today_key(self) -> str:
-        return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        """کلید کش per-symbol + تاریخ (وگرنه بایاس یک نماد برای بقیه هم برگردانده می‌شود)."""
+        return f"{self.symbol}_{datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
 
     def _load_cache(self) -> dict:
         try:
